@@ -1,0 +1,148 @@
+/* General Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #eef2f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 350px; /* Respeta el espacio del nav */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de la tabla */
+.document-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.document-table th, .document-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.document-table th {
+    background-color: #2C3E50;
+    color: white;
+    font-weight: bold;
+}
+
+.document-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Table actions buttons container */
+.actions {
+    display: flex;
+    justify-content: space-between; /* Colocar botones con espacio entre ellos */
+    align-items: center; /* Alinear verticalmente al centro */
+    gap: 10px; /* Separación entre los botones */
+}
+
+.btn-view, .btn-update {
+    padding: 10px 15px;
+    background-color: #2ecc71;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Evitar que los botones se encojan */
+    white-space: nowrap; /* Evitar que el texto se desborde en múltiples líneas */
+    font-size: 14px;
+}
+
+.btn-view:hover, .btn-update:hover {
+    background-color: #27ae60;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Header and buttons */
+h1, h2 {
+    color: #2C3E50;
+}
+
+button, .btn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #2980b9;
+}
+
+/* General Input Styles */
+input[type="text"], input[type="file"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="file"] {
+    padding: 5px;
+    border: none;
+}
+
+hr {
+    margin: 30px 0;
+    border: 0;
+    height: 1px;
+    background: #ccc;
+}

@@ -1,0 +1,75 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+/* Main Content */
+.main-content {
+    padding: 40px;
+    margin-left: 350px; /* Ajustar con el ancho del sidebar */
+    width: calc(100% - 350px);
+    background-color: #eef2f7;
+    transition: all 0.3s ease;
+}
+
+/* Title Styling */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #000000;
+    margin-bottom: 40px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+thead {
+    background-color: #00440f;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e3f2fd;
+}
+
+td a {
+    color: #00796b;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #dcedc8;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+td a:hover {
+    background-color: #00796b;
+    color: white;
+}
+

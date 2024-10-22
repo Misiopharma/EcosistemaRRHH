@@ -1,0 +1,196 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f6fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #2C3E50;
+    margin-bottom: 30px;
+}
+
+/* Section Headers */
+.section-block h2 {
+    font-size: 22px;
+    color: #2980b9;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 5px;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.info-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #dcdde1;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+/* Button Styles */
+button, .btn-back, .btn-pdf, .btn-upload, .btn-edit {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+button:hover, .btn-back:hover, .btn-pdf:hover, .btn-upload:hover, .btn-edit:hover {
+    background-color: #3498db;
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    float: right;
+    margin-top: -30px;
+}
+
+/* Input and Select Styles */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdde1;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-color: #ecf0f1;
+}
+
+form input:focus, form select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Form Container */
+form {
+    background-color: #f4f6f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+/* Hide forms initially */
+#form-datos, #upload-form {
+    display: none;
+}
+
+/* Table Styles */
+ul.info-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Document Section */
+#documentos-legajo {
+    margin-top: 30px;
+}
+
+ul.info-list a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+ul.info-list a:hover {
+    color: #2980b9;
+}
+
+/* Historial de Vacaciones */
+#historial-vacaciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+#historial-vacaciones ul li {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-pdf {
+    background-color: #ebebeb;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-pdf:hover {
+    background-color: #2ecc71;
+}
+
+/* Asistencia */
+#asistencia ul {
+    list-style: none;
+    padding: 0;
+}
+
+#asistencia ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #dcdde1;
+    font-size: 16px;
+}
+
+#asistencia ul li:last-child {
+    border-bottom: none;
+}
+
+/* Back Button */
+.btn-back {
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    background-color: #c0392b;
+}
+
+.btn-back:hover {
+    background-color: #e74c3c;
+}

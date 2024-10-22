@@ -1,0 +1,35 @@
+
+
+h1 {
+    color: #2A5D23;
+    margin-bottom: 30px;
+}
+
+.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.panel {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.panel h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #2A5D23;
+}
+
+.panel p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.panel strong {
+    color: #333;
+}

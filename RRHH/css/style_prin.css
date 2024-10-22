@@ -1,0 +1,136 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 80px; /* Ajustar para la navbar fija */
+}
+
+/* Main Content Adjustments */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    width: calc(100% - 250px);
+    transition: all 0.3s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+        width: 100%;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .sidebar a {
+        display: inline-block;
+        padding: 10px;
+    }
+    .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .panel {
+        max-width: 100%;
+    }
+}
+
+/* Enhanced Panel Styles */
+.panel {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+.panel:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+.panel-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+.panel-content {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+.panel-footer {
+    font-size: 0.9em;
+    color: #999;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px;
+    margin-top: 20px;
+}
+
+/* Button Styles */
+.panel-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.panel-button:hover {
+    background-color: #0056b3;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+.card-header {
+    font-size: 1.25em;
+    font-weight: 500;
+}
+.card-body p {
+    font-size: 1em;
+    margin: 0;
+}
+
+/* Navbar Styles */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+}
+
+.navbar-nav .dropdown-menu {
+    background-color: #343a40;
+}
+
+.navbar-nav .dropdown-item {
+    color: white;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #495057;
+}

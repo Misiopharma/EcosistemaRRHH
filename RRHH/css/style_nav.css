@@ -1,0 +1,33 @@
+/* Estilos personalizados para la navbar */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #495057;
+    border-radius: 5px;
+}
+
+.navbar-nav .dropdown-menu {
+    background-color: #343a40;
+    border-radius: 5px;
+}
+
+.navbar-nav .dropdown-item {
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #495057;
+    border-radius: 5px;
+}
+
