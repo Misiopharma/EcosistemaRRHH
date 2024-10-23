@@ -1,6 +1,5 @@
 <?php
-include '../config.php';
-
+require '../config/config.php';
 $empleado_id = $_GET['empleado_id'];
 $fecha_inicio = $_GET['fecha_inicio'];
 $fecha_fin = $_GET['fecha_fin'];

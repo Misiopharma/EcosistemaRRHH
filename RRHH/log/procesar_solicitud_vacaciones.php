@@ -1,6 +1,5 @@
 <?php
-include '../config.php';
-
+include "../../config/config.php";
 $empleado_id = $_POST['empleado_id'];
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
@@ -13,7 +12,7 @@ $dias_solicitados = (strtotime($fecha_fin) - strtotime($fecha_inicio)) / (60 * 6
 $sql_insert = "INSERT INTO historial_vacaciones (empleado_id, fecha_inicio, fecha_fin, dias_solicitados, estado, fecha_solicitud, comentarios)
                VALUES (:empleado_id, :fecha_inicio, :fecha_fin, :dias_solicitados, 'Pendiente', CURDATE(), :observaciones)";
 
-$stmt_insert = $conn->prepare($sql_insert);
+$stmt_insert = $pdo->prepare($sql_insert);
 $stmt_insert->bindParam(':empleado_id', $empleado_id);
 $stmt_insert->bindParam(':fecha_inicio', $fecha_inicio);
 $stmt_insert->bindParam(':fecha_fin', $fecha_fin);

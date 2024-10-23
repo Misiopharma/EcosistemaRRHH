@@ -1,6 +1,5 @@
 <?php
-include '../config.php';
-
+require '../config/config.php';
 $empleado_id = $_GET['empleado_id'];
 
 // Consulta para obtener las vacaciones disponibles del empleado

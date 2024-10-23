@@ -1,6 +1,5 @@
 <?php
-include '../config.php';
-
+include "../../config/config.php";
 // Validar que los parámetros hayan sido recibidos
 $empleado_id = isset($_GET['empleado_id']) ? $_GET['empleado_id'] : null;
 $fecha_inicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : null;
@@ -15,7 +14,7 @@ if (!$empleado_id || !$fecha_inicio || !$fecha_fin) {
 
 // Obtener los datos del empleado
 $sql = "SELECT e.nombre, e.apellido, e.puesto FROM empleados e WHERE e.id = :empleado_id";
-$stmt = $conn->prepare($sql);
+$stmt = $pdo->prepare($sql);
 $stmt->bindParam(':empleado_id', $empleado_id);
 $stmt->execute();
 $empleado = $stmt->fetch(PDO::FETCH_ASSOC);

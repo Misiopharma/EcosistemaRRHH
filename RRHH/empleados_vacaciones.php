@@ -14,6 +14,7 @@ $stmt->execute();
 $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,7 +49,6 @@ $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $empleado['vacaciones_adelantadas'] ?></td>
                     <td>
                         <a href="detalle_vacaciones.php?id=<?= $empleado['id'] ?>">Ver Detalle</a>
-                        <!-- Aquí puedes agregar otras acciones como renovar vacaciones -->
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -1,5 +1,5 @@
 <?php
-include '../config.php';
+include "../../config/config.php";
 require '../dompdf/autoload.inc.php'; // Asegúrate de que dompdf esté instalado y configurado correctamente
 
 use Dompdf\Dompdf;
@@ -10,7 +10,7 @@ $accion = $_GET['accion'];
 
 // Obtener la solicitud de vacaciones
 $sql = "SELECT empleado_id, dias_solicitados, fecha_inicio, fecha_fin, comentarios FROM historial_vacaciones WHERE id = :id";
-$stmt = $conn->prepare($sql);
+$stmt = $pdo->prepare($sql);
 $stmt->bindParam(':id', $solicitud_id);
 $stmt->execute();
 $solicitud = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,14 +23,14 @@ $comentarios = $solicitud['comentarios'];
 
 // Obtener los datos del empleado
 $sql_empleado = "SELECT nombre, apellido, puesto FROM empleados WHERE id = :empleado_id";
-$stmt_empleado = $conn->prepare($sql_empleado);
+$stmt_empleado = $pdo->prepare($sql_empleado);
 $stmt_empleado->bindParam(':empleado_id', $empleado_id);
 $stmt_empleado->execute();
 $empleado = $stmt_empleado->fetch(PDO::FETCH_ASSOC);
 
 // Verificar los días disponibles del empleado
 $sql_saldo = "SELECT vacaciones_restantes, vacaciones_acumuladas, vacaciones_adelantadas FROM saldo_vacaciones WHERE empleado_id = :empleado_id";
-$stmt_saldo = $conn->prepare($sql_saldo);
+$stmt_saldo = $pdo->prepare($sql_saldo);
 $stmt_saldo->bindParam(':empleado_id', $empleado_id);
 $stmt_saldo->execute();
 $saldo = $stmt_saldo->fetch(PDO::FETCH_ASSOC);
@@ -48,7 +48,7 @@ if ($accion == 'aprobar') {
                              SET vacaciones_restantes = :vacaciones_restantes, 
                                  vacaciones_acumuladas = 0 
                              WHERE empleado_id = :empleado_id";
-        $stmt_update_saldo = $conn->prepare($sql_update_saldo);
+        $stmt_update_saldo = $pdo->prepare($sql_update_saldo);
         $stmt_update_saldo->bindParam(':vacaciones_restantes', $dias_restantes_actualizados);
         $stmt_update_saldo->bindParam(':empleado_id', $empleado_id);
         $stmt_update_saldo->execute();
@@ -62,7 +62,7 @@ if ($accion == 'aprobar') {
                                  vacaciones_acumuladas = 0, 
                                  vacaciones_adelantadas = :vacaciones_adelantadas 
                              WHERE empleado_id = :empleado_id";
-        $stmt_update_saldo = $conn->prepare($sql_update_saldo);
+        $stmt_update_saldo = $pdo->prepare($sql_update_saldo);
         $stmt_update_saldo->bindParam(':vacaciones_adelantadas', $dias_adelantados_actualizados);
         $stmt_update_saldo->bindParam(':empleado_id', $empleado_id);
         $stmt_update_saldo->execute();
@@ -70,7 +70,7 @@ if ($accion == 'aprobar') {
 
     // Actualizar el estado de la solicitud a 'Aceptada'
     $sql_aprobar = "UPDATE historial_vacaciones SET estado = 'Aceptada' WHERE id = :id";
-    $stmt_aprobar = $conn->prepare($sql_aprobar);
+    $stmt_aprobar = $pdo->prepare($sql_aprobar);
     $stmt_aprobar->bindParam(':id', $solicitud_id);
     $stmt_aprobar->execute();
 
@@ -79,7 +79,7 @@ if ($accion == 'aprobar') {
 } elseif ($accion == 'rechazar') {
     // Actualizar el estado de la solicitud a 'Rechazada'
     $sql_rechazar = "UPDATE historial_vacaciones SET estado = 'Rechazada' WHERE id = :id";
-    $stmt_rechazar = $conn->prepare($sql_rechazar);
+    $stmt_rechazar = $pdo->prepare($sql_rechazar);
     $stmt_rechazar->bindParam(':id', $solicitud_id);
     $stmt_rechazar->execute();
     
@@ -205,7 +205,7 @@ file_put_contents($output_path, $dompdf->output());
 
 // Actualizar el campo de PDF generado en la base de datos
 $sql_update_pdf = "UPDATE historial_vacaciones SET pdf_generado = :pdf_generado WHERE id = :id";
-$stmt_update_pdf = $conn->prepare($sql_update_pdf);
+$stmt_update_pdf = $pdo->prepare($sql_update_pdf);
 $stmt_update_pdf->bindParam(':pdf_generado', $file_name);
 $stmt_update_pdf->bindParam(':id', $solicitud_id);
 $stmt_update_pdf->execute();
