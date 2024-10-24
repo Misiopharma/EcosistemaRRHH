@@ -1,20 +1,50 @@
 <?php
-require '../config/config.php';
-require 'config/auth.php';
+// Incluir la configuración de la base de datos
+include '../config/config.php';
+include 'config/auth.php';
 
-// Consulta para obtener los documentos desde la base de datos
-$sql = "SELECT * FROM documentos_empresa";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$documentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Consultas para obtener datos
+$sqlEmpleados = "SELECT COUNT(*) AS total_empleados FROM empleados";
+$stmtEmpleados = $pdo->prepare($sqlEmpleados);
+$stmtEmpleados->execute();
+$totalEmpleados = $stmtEmpleados->fetch(PDO::FETCH_ASSOC)['total_empleados'];
+
+$hoy = date('Y-m-d');
+$sqlPresentes = "SELECT COUNT(*) AS presentes_hoy FROM asistencia WHERE fecha = :hoy AND (estado = 'presente' OR estado = 'Presente (Tardanza)' OR estado = 'Presente (Tardanza: Justificada)')";
+$stmtPresentes = $pdo->prepare($sqlPresentes);
+$stmtPresentes->bindParam(':hoy', $hoy);
+$stmtPresentes->execute();
+$presentesHoy = $stmtPresentes->fetch(PDO::FETCH_ASSOC)['presentes_hoy'];
+
+$sqlAusentes = "SELECT COUNT(*) AS ausentes_hoy FROM asistencia WHERE fecha = :hoy AND estado = 'ausente'";
+$stmtAusentes = $pdo->prepare($sqlAusentes);
+$stmtAusentes->bindParam(':hoy', $hoy);
+$stmtAusentes->execute();
+$ausentesHoy = $stmtAusentes->fetch(PDO::FETCH_ASSOC)['ausentes_hoy'];
+
+$sqlTardanzas = "SELECT COUNT(*) AS tardanzas_hoy FROM asistencia WHERE fecha = :hoy AND (estado = 'Presente (Tardanza)' OR estado = 'Presente (Tardanza: Justificada)')";
+$stmtTardanzas = $pdo->prepare($sqlTardanzas);
+$stmtTardanzas->bindParam(':hoy', $hoy);
+$stmtTardanzas->execute();
+$tardanzasHoy = $stmtTardanzas->fetch(PDO::FETCH_ASSOC)['tardanzas_hoy'];
+
+$sqlVacaciones = "SELECT COUNT(*) AS vacaciones_actuales FROM historial_vacaciones WHERE estado = 'aprobado' AND CURDATE() BETWEEN fecha_inicio AND fecha_fin";
+$stmtVacaciones = $pdo->prepare($sqlVacaciones);
+$stmtVacaciones->execute();
+$vacacionesActuales = $stmtVacaciones->fetch(PDO::FETCH_ASSOC)['vacaciones_actuales'];
+
+$sqlInasistencias = "SELECT COUNT(*) AS inasistencias_hoy FROM asistencia WHERE fecha = :hoy AND estado = 'ausente'";
+$stmtInasistencias = $pdo->prepare($sqlInasistencias);
+$stmtInasistencias->bindParam(':hoy', $hoy);
+$stmtInasistencias->execute();
+$inasistenciasHoy = $stmtInasistencias->fetch(PDO::FETCH_ASSOC)['inasistencias_hoy'];
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Políticas de la Empresa</title>
+    <title>Dashboard Principal - Recursos Humanos</title>
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -72,47 +102,43 @@ $documentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </nav>
 
-
     <div class="container mt-5 pt-5">
-        <h1 class="text-center">Políticas de la Empresa</h1>
+
+       <h2 class="text-center">Hola  <!-- <?= htmlspecialchars($usuario) ?>* -->,¿cómo te va hoy? :D</h2>
+
+        <h1 class="text-center">Panel de Control - Recursos Humanos</h1>
         <div class="row mt-4">
-            <div class="col-md-12">
-                <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar documento...">
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre del Documento</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="document-table-body">
-                        <!-- Aquí se insertarán dinámicamente los documentos con PHP -->
-                        <?php foreach ($documentos as $documento): ?>
-                            <tr>
-                                <td><?= $documento['nombre_documento'] ?></td>
-                                <td>
-                                    <a href="<?= $documento['ruta_archivo'] ?>" class="btn btn-primary" target="_blank">Ver Documento</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Asistencia</div>
+                    <div class="card-body">
+                        <p>Total de empleados: <strong><?= $totalEmpleados ?></strong></p>
+                        <p>Presentes hoy: <strong><?= $presentesHoy ?></strong></p>
+                        <p>Ausentes hoy: <strong><?= $ausentesHoy ?></strong></p>
+                        <p>Tardanzas hoy: <strong><?= $tardanzasHoy ?></strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Vacaciones</div>
+                    <div class="card-body">
+                        <p>Empleados en vacaciones: <strong><?= $vacacionesActuales ?></strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">Inasistencias</div>
+                    <div class="card-body">
+                        <p>Inasistencias hoy: <strong><?= $inasistenciasHoy ?></strong></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function(){
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#document-table-body tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
 </body>
 </html>

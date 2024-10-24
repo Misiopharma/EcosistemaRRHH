@@ -1,7 +1,7 @@
 <?php
 // Incluir la configuración de la base de datos
-require '../config/config.php';
-require 'auth.php';
+require '../../config/config.php';
+require '../config/auth.php';
 
 // Obtener el ID del empleado desde la URL
 $empleado_id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_datos'])) 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legajo de <?= htmlspecialchars($empleado['nombre'] . ' ' . $empleado['apellido']) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/legajo_moderno.css">
+    <link rel="stylesheet" href="../css/legajo_moderno.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_datos'])) 
         </section>
 
         <!-- Botón para regresar -->
-        <a href="dashboard_legajos.php" class="btn btn-secondary mt-3">Volver a la lista de empleados</a>
+        <a href="../legajos.php" class="btn btn-secondary mt-3">Volver a la lista de empleados</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

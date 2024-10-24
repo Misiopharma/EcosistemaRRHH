@@ -1,4 +1,4 @@
-<!-- predashboard.php -->
+
 <?php
 require 'config/auth.php';
 require 'config/config.php';
@@ -16,11 +16,9 @@ if (!is_array($sistemasAcceso)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predashboard - MISIOPHARMA</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/predashboard.css?v=<?php echo time(); ?>">
-    <!-- Font Awesome for icons -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -40,7 +38,7 @@ if (!is_array($sistemasAcceso)) {
                                 <i class="fas fa-users fa-3x mb-3"></i>
                             <?php endif; ?>
                             <h5 class="card-title"><?php echo ucfirst(str_replace('_', ' ', htmlspecialchars($sistema))); ?></h5>
-                            <a href="<?php echo ($sistema === 'recursos_humanos') ? '/rrhh/dashboardprincipal.php' : htmlspecialchars($sistema) . '.php'; ?>" class="btn btn-primary">Ir al sistema</a>
+                            <a href="<?php echo ($sistema === 'recursos_humanos') ? '/RRHH/inicio.php' : htmlspecialchars($sistema) . '.php'; ?>" class="btn btn-primary">Ir al sistema</a>
                         </div>
                     </div>
                 </div>

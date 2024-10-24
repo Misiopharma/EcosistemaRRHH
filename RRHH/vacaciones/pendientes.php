@@ -1,6 +1,6 @@
 <?php
-require '../config/config.php';
-require 'auth.php';
+require '../../config/config.php';
+require '../config/auth.php';
 
 // Obtener las solicitudes pendientes
 $sql = "SELECT h.id, e.nombre, e.apellido, h.fecha_inicio, h.fecha_fin, h.estado 
@@ -18,7 +18,7 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitudes de Vacaciones Pendientes</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -26,6 +26,7 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Recursos Humanos</a>
@@ -35,37 +36,42 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboardprincipal.php"><i class="fas fa-home"></i> Inicio</a>
+                        <a class="nav-link" href="../inicio.php"><i class="fas fa-home"></i> Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard_legajos.php"><i class="fas fa-folder"></i> Legajos</a>
+                        <a class="nav-link" href="../legajos.php"><i class="fas fa-folder"></i> Legajos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
+                        <a class="nav-link" href="../politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="vacacionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-briefcase"></i> Vacaciones
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="vacacionesDropdown">
-                            <li><a class="dropdown-item" href="vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
-                            <li><a class="dropdown-item" href="solicitudes_pendientes.php"><i class="fas fa-check-circle"></i> Autorización Vacaciones</a></li>
+                            <li><a class="dropdown-item" href="../vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
+                            <li><a class="dropdown-item" href="pendientes.php"><i class="fas fa-check-circle"></i> Autorización Vacaciones</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="inasistencias.php"><i class="fas fa-user-times"></i> Inasistencias</a>
+                        <a class="nav-link" href="../inasistencias.php"><i class="fas fa-user-times"></i> Inasistencias</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="configuracionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-cogs"></i> Configuración
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="configuracionDropdown">
-                            <li><a class="dropdown-item" href="crear_empleado.php"><i class="fas fa-user-plus"></i> Crear Empleado</a></li>
-                            <li><a class="dropdown-item" href="renovar_vacaciones.php"><i class="fas fa-sync-alt"></i> Renovar Vacaciones</a></li>
-                            <li><a class="dropdown-item" href="documentos_empresa.php"><i class="fas fa-file-alt"></i> Gestión Documentos</a></li>
+                            <li><a class="dropdown-item" href="../configuracion/crear_empleado.php"><i class="fas fa-user-plus"></i> Crear Empleado</a></li>
+                            <li><a class="dropdown-item" href="../configuracion/renovar_vacaciones.php"><i class="fas fa-sync-alt"></i> Renovar Vacaciones</a></li>
+                            <li><a class="dropdown-item" href="../configuracion/documentos_empresa.php"><i class="fas fa-file-alt"></i> Gestión Documentos</a></li>
                         </ul>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../controller/logoutcontroller.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                    </li>
+                </ul>   
             </div>
         </div>
     </nav>
@@ -97,8 +103,8 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= date('d/m/Y', strtotime($solicitud['fecha_fin'])) ?></td>
                             <td><?= $solicitud['estado'] ?></td>
                             <td>
-                                <a href="log/gestionar_solicitud.php?id=<?= $solicitud['id'] ?>&accion=aprobar" class="btn btn-aprobar"><i class="fas fa-check"></i> Aprobar</a>
-                                <a href="log/gestionar_solicitud.php?id=<?= $solicitud['id'] ?>&accion=rechazar" class="btn btn-rechazar"><i class="fas fa-times"></i> Rechazar</a>
+                                <a href="../log/gestionar_solicitud.php?id=<?= $solicitud['id'] ?>&accion=aprobar" class="btn btn-aprobar"><i class="fas fa-check"></i> Aprobar</a>
+                                <a href="../log/gestionar_solicitud.php?id=<?= $solicitud['id'] ?>&accion=rechazar" class="btn btn-rechazar"><i class="fas fa-times"></i> Rechazar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

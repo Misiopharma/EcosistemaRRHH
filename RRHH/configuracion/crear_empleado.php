@@ -1,35 +1,10 @@
-<?php
-require '../config/config.php';
-require 'auth.php';
-
-$mensaje = '';
-
-// Manejar el envío del formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $puesto = $_POST['puesto'];
-
-    // Insertar el nuevo empleado en la base de datos
-    $sql_insert = "INSERT INTO empleados (nombre, apellido, puesto) VALUES (:nombre, :apellido, :puesto)";
-    $stmt_insert = $pdo->prepare($sql_insert);
-    $stmt_insert->bindParam(':nombre', $nombre);
-    $stmt_insert->bindParam(':apellido', $apellido);
-    $stmt_insert->bindParam(':puesto', $puesto);
-    $stmt_insert->execute();
-
-    // Establecer el mensaje de confirmación
-    $mensaje = 'Empleado creado exitosamente.';
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Crear Nuevo Empleado</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -90,8 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 </style>
 <body>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Recursos Humanos</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,21 +74,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboardprincipal.php"><i class="fas fa-home"></i> Inicio</a>
+                        <a class="nav-link" href="../inicio.php"><i class="fas fa-home"></i> Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard_legajos.php"><i class="fas fa-folder"></i> Legajos</a>
+                        <a class="nav-link" href="../legajos.php"><i class="fas fa-folder"></i> Legajos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
+                        <a class="nav-link" href="../politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="vacacionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-briefcase"></i> Vacaciones
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="vacacionesDropdown">
-                            <li><a class="dropdown-item" href="vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
-                            <li><a class="dropdown-item" href="solicitudes_pendientes.php"><i class="fas fa-check-circle"></i> Autorización Vacaciones</a></li>
+                            <li><a class="dropdown-item" href="../vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
+                            <li><a class="dropdown-item" href="../vacaciones/pendientes.php"><i class="fas fa-check-circle"></i> Autorización Vacaciones</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -131,6 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </ul>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../controller/logoutcontroller.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                    </li>
+                </ul>   
             </div>
         </div>
     </nav>
@@ -142,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h2>Crear Nuevo Empleado</h2>
                     </div>
                     <div class="card-body">
-                        <form action="crear_empleado.php" method="POST">
+                        <form action="controller/crearempleado.php" method="POST">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -163,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <?php if ($mensaje): ?>
+    <?php if (isset($mensaje) && $mensaje): ?>
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" id="close-btn">&times;</span>
@@ -175,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
         // Mostrar la ventana modal si hay un mensaje
-        <?php if ($mensaje): ?>
+        <?php if (isset($mensaje) && $mensaje): ?>
             document.getElementById('modal').style.display = 'block';
         <?php endif; ?>
 
@@ -184,8 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.getElementById('modal').style.display = 'none';
         }
     </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

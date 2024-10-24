@@ -1,36 +1,3 @@
-<?php
-require 'config/config.php';
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Obtener los datos del formulario de login
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Verificar el usuario en la base de datos
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
-    $stmt->execute(['usuario' => $username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['password'])) {
-        // Generar un token de sesión único
-        $sessionToken = bin2hex(random_bytes(32));
-
-        // Establecer el token en una cookie segura
-        setcookie("session_token", $sessionToken, time() + 3600, "/", "", true, true);
-
-        // Almacenar el token en la base de datos
-        $stmt = $pdo->prepare("UPDATE usuarios SET session_token = :session_token WHERE id = :id");
-        $stmt->execute(['session_token' => $sessionToken, 'id' => $user['id']]);
-
-        // Redirigir al predashboard
-        header("Location: predashboard.php");
-        exit();
-    } else {
-        $error = "Usuario o contraseña incorrectos.";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/login.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../css/login.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
@@ -49,15 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="card mt-5">
                     <div class="card-body">
                         <div class="text-center">
-                            <h3>Sistema de asistencia</h3>
                             <h2>Iniciar Sesión</h2>
                         </div>
-                        <?php if (isset($error)): ?>
+                        <?php if (isset($error) && !empty($error)): ?>
                             <div class="alert alert-danger" role="alert">
-                                <?php echo $error; ?>
+                                <?php echo htmlspecialchars($error); ?>
                             </div>
                         <?php endif; ?>
-                        <form action="login.php" method="POST">
+                        <form action="../controller/logincontroller.php" method="POST">
                             <div class="form-group">
                                 <label for="username">Nombre de Usuario:</label>
                                 <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required>

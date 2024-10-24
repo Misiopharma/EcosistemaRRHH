@@ -1,11 +1,10 @@
 <?php
-// auth.php
-require '../config/config.php';
+require dirname(__DIR__, 2) . '/config/config.php';
 
 session_start();
 
 // Establecer el tiempo de inactividad permitido en segundos
-$tiempoInactividadPermitido = 200;
+$tiempoInactividadPermitido = 600; // 10 minutes
 
 // Verificar si la última actividad está registrada en la sesión
 if (isset($_SESSION['ultima_actividad'])) {
@@ -14,7 +13,7 @@ if (isset($_SESSION['ultima_actividad'])) {
         // Destruir la sesión y redirigir al usuario a la página de inicio de sesión
         session_unset();
         session_destroy();
-        header("Location: ../login.php");
+        header("Location: ../controller/logincontroller.php");
         exit();
     }
 }
@@ -24,17 +23,23 @@ $_SESSION['ultima_actividad'] = time();
 
 // Verificar si la cookie existe y coincide con la base de datos
 if (!isset($_COOKIE['session_token'])) {
-    header("Location: ..(login.php");
+    header("Location: ../../controller/logincontroller.php");
     exit();
 }
 
 $sessionToken = $_COOKIE['session_token'];
-$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE session_token = :session_token");
-$stmt->execute(['session_token' => $sessionToken]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+try {
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE session_token = :session_token");
+    $stmt->execute(['session_token' => $sessionToken]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Database error: " . $e->getMessage());
+    header("Location: ../../controller/logincontroller.php");
+    exit();
+}
 
 if (!$user) {
-    header("Location: ../login.php");
+    header("Location: ../../controller/logincontroller.php");
     exit();
 }
 ?>

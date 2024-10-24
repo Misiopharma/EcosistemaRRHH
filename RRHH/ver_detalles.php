@@ -1,6 +1,6 @@
 <?php
 require '../config/config.php';
-require 'auth.php';
+require 'config/auth.php';
 
 $empleado_id = $_GET['id'];
 

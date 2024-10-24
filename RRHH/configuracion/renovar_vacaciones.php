@@ -1,6 +1,6 @@
 <?php
-require '../config/config.php';
-require 'auth.php';
+require '../../config/config.php';
+require '../config/auth.php';
 
 // Obtener todos los empleados y sus saldos de vacaciones
 $sql = "SELECT e.id, e.nombre, e.apellido, s.vacaciones_restantes, s.vacaciones_acumuladas, s.vacaciones_adelantadas 
@@ -58,7 +58,7 @@ if (isset($_POST['renovar_vacaciones'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renovar Vacaciones - Recursos Humanos</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -74,25 +74,25 @@ if (isset($_POST['renovar_vacaciones'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboardprincipal.php"><i class="fas fa-home"></i> Inicio</a>
+                    <a class="nav-link" href="../inicio.php"><i class="fas fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard_legajos.php"><i class="fas fa-folder"></i> Legajos</a>
+                    <a class="nav-link" href="../dashboard_legajos.php"><i class="fas fa-folder"></i> Legajos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
+                    <a class="nav-link" href="../politicas.php"><i class="fas fa-gavel"></i> Políticas</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="vacacionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-briefcase"></i> Vacaciones
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="vacacionesDropdown">
-                        <li><a class="dropdown-item" href="vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
+                        <li><a class="dropdown-item" href="../vacaciones.php"><i class="fas fa-list"></i> Lista de Empleados</a></li>
                         <li><a class="dropdown-item" href="solicitudes_pendientes.php"><i class="fas fa-check-circle"></i> Autorización Vacaciones</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="inasistencias.php"><i class="fas fa-user-times"></i> Inasistencias</a>
+                    <a class="nav-link" href="../inasistencias.php"><i class="fas fa-user-times"></i> Inasistencias</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="configuracionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -105,6 +105,11 @@ if (isset($_POST['renovar_vacaciones'])) {
                     </ul>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../controller/logoutcontroller.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                    </li>
+                </ul>   
         </div>
     </div>
 </nav>
